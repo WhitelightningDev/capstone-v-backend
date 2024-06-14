@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware'); // Import authentication middleware
 const CredentialRepository = require('../models/CredentialRepository'); // Import CredentialRepository model
 
-// Middleware to verify JWT and user permissions
+// Middleware to verify user permissions
 const verifyPermissions = (req, res, next) => {
     if (req.user.role !== 'admin') { // Check if user role is not admin
         return res.status(403).json({ message: 'Unauthorized' });

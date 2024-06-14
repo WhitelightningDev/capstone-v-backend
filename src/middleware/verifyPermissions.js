@@ -1,10 +1,8 @@
-// src/middleware/verifyPermissions.js
-
 // Middleware to verify if the user has the required role to access a route
 const verifyPermissions = (requiredRole) => {
     // Return a middleware function
     return (req, res, next) => {
-        const { role } = req.user;  // Extract the user's role from the request object
+        const { role } = req.user; // Extract the user's role from the request object
 
         // Check if the user's role matches the required role
         if (!role || role !== requiredRole) {
