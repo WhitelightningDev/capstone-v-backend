@@ -1,3 +1,5 @@
+// middleware/authMiddleware.js
+
 // Import required module
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken for verifying JWT tokens
 require('dotenv').config(); // Load environment variables from .env file

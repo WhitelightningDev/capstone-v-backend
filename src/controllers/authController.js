@@ -1,3 +1,5 @@
+// controllers/authController.js
+
 // Import required modules
 const jwt = require('jsonwebtoken');  // Import jsonwebtoken for token generation
 const User = require('../models/User');  // Import User model for database operations
@@ -55,5 +57,20 @@ const loginUser = async (req, res) => {
     }
 };
 
+// Controller function for demo login
+const demoLogin = async (req, res) => {
+    const demoUser = {
+        _id: 'demoUserId',
+        name: 'Demo User',
+        email: 'demo@example.com',
+        role: 'Newsmanagement',
+    };
+    const token = generateToken(demoUser._id);
+    res.json({
+        ...demoUser,
+        token,
+    });
+};
+
 // Export the controller functions for use in routes
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, demoLogin };
