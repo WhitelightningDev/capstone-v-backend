@@ -1,5 +1,3 @@
-// controllers/authController.js
-
 // Import required modules
 const jwt = require('jsonwebtoken');  // Import jsonwebtoken for token generation
 const User = require('../models/User');  // Import User model for database operations
@@ -72,5 +70,35 @@ const demoLogin = async (req, res) => {
     });
 };
 
+// Controller function to update user profile
+const updateProfile = async (req, res) => {
+    const { name, email, password } = req.body;  // Destructure updated user data from request body
+    try {
+        // Get user ID from authenticated request (from authMiddleware)
+        const userId = req.user.id;
+
+        // Validate if required fields are present
+        if (!name || !email) {
+            return res.status(400).json({ message: 'Name and email are required' });
+        }
+
+        // Find user by ID and update profile fields
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { name, email, password },  // Update fields
+            { new: true }  // Return updated document
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(updatedUser);  // Respond with updated user details
+    } catch (error) {
+        console.error('Error updating profile:', error);  // Log any errors during profile update
+        res.status(500).json({ message: error.message });  // Send error response
+    }
+};
+
 // Export the controller functions for use in routes
-module.exports = { registerUser, loginUser, demoLogin };
+module.exports = { registerUser, loginUser, demoLogin, updateProfile };
