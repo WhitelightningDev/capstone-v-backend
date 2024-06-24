@@ -1,11 +1,11 @@
-// src/index.js
-const express = require ('express');
+const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const authRoutes = require('./routes/authRoutes'); // Import authentication routes
-const credentialRepositoryRoutes = require('./routes/credentialRepositoryRoutes'); // Import credential repository routes
-const userRoutes = require('./routes/userRoutes'); // Import user routes
+const authRoutes = require('./src/routes/authRoutes'); // Updated path for routes
+const credentialRepositoryRoutes = require('./src/routes/credentialRepositoryRoutes'); // Updated path for routes
+const userRoutes = require('./src/routes/userRoutes'); // Updated path for routes
+
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -26,9 +26,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 // Mounting routes
-app.use('/api/auth', authRoutes); // Mount authentication routes under /api/auth
-app.use('/api/credential-repositories', credentialRepositoryRoutes); // Mount credential repository routes under /api/credential-repositories
-app.use('/api/users', userRoutes); // Mount user routes under /api/users
+app.use('/api/auth', authRoutes); // Mount authentication routes
+app.use('/api/credential-repositories', credentialRepositoryRoutes); // Mount credential repository routes
+app.use('/api/users', userRoutes); // Mount user routes
+
 
 // Start the server
 app.listen(PORT, () => {
